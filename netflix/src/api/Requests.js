@@ -1,5 +1,13 @@
 import axiosClient, { API_KEY } from "./axiosClient";
 
+export const imageOriginal = (path) => {
+    return `https://image.tmdb.org/t/p/original/${path}`
+}
+
+export const imageW500 = (path) => {
+    return `https://image.tmdb.org/t/p/w500/${path}`
+}
+
 export const _requests = {
     requestPopular: axiosClient.get('movie/popular', {
         params: {
@@ -35,9 +43,3 @@ export const _requests = {
 
 export default _requests;
 
-// export const requests = {
-//     requestPopular: `https://api.themoviedb.org/3/popular?api_key=${API_KEY}&language=en-US&page=1`,
-//     requestTopRated: `https://api.themoviedb.org/3/movie/top_rated?api_key=${API_KEY}&language=en-US&page=1`,
-//     requestTrending: `https://api.themoviedb.org/3/movie/popular?api_key=${API_KEY}&language=en-US&quer=horror&page=1`,
-//     requestUpcoming: `https://api.themoviedb.org/3/movie/upcoming?api_key=${API_KEY}&language=en-US&page=1`,
-// };
