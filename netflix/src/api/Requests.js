@@ -17,20 +17,15 @@ export const _requests = {
         }
     }),
 
-    requestTopRated: axiosClient.get('movie/top_rated', {
-        params: {
-            api_key: API_KEY,
-            language: 'en-US',
-            page: 1
-        }
-    }),
+    // todo: create function combines between top rated movies and tv and another one for on air (movie + tv)
 
-    requestTrending: axiosClient.get('trending/movie/week', {
-        params: {
-            api_key: API_KEY,
-            language: 'en-US',
-        }
-    }),
+    // requestTopRatedMovie: axiosClient.get('movie/top_rated', {
+    //     params: {
+    //         api_key: API_KEY,
+    //         language: 'en-US',
+    //         page: 1
+    //     }
+    // }),
 
     requestUpcoming: axiosClient.get('movie/upcoming', {
         params: {
@@ -39,6 +34,30 @@ export const _requests = {
             page: 1
         }
     }),
+
+    requestTrendingMovie: axiosClient.get('trending/movie/week', {
+        params: {
+            api_key: API_KEY,
+            language: 'en-US',
+        }
+    }),
+    
+    requestTrendingTV: axiosClient.get('trending/tv/week', {
+        params: {
+            api_key: API_KEY,
+            language: 'en-US',
+        }
+    }),
+    
+    requestOnAirTv: axiosClient.get('tv/on_the_air', {
+        params: {
+            api_key: API_KEY,
+            language: 'en-US',
+        }
+    }),
+    
+
+
 };
 
 export default _requests;

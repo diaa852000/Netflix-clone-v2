@@ -1,10 +1,12 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
+import Movie from './Movie';
 import _requests from '../api/Requests';
-import { imageOriginal } from '../api/Requests';
 
+import {MdChevronLeft, MdChevronRight} from 'react-icons/md'
 
 const Row = ({title, fetchURL}) => {
     const [movies, setMovies] = useState([]);
+    const sliderRef = useRef();
 
     useEffect(() => {
         const fetchMovies = async () => {
@@ -20,28 +22,36 @@ const Row = ({title, fetchURL}) => {
 
         fetchMovies()
     },[fetchURL])
-    
 
+    const handleSlideRight = () => {
+        if (sliderRef.current){
+            sliderRef.current.scrollLeft = sliderRef.current.scrollLeft +  500;
+        }
+    }
+    
+    const handleSlideLeft = () => {
+        if (sliderRef.current) {
+            sliderRef.current.scrollLeft = sliderRef.current.scrollLeft - 500;
+        }
+    }
 
     return (
         <>
-            <h2 className='text-white font-bold md:text-xl p-4'>{title}</h2>
-            <div className='relative flex items-center'>
-                <div id='slider'>
-                    {movies.length > 0 
-                    ? movies.map((item, id) => (
-                        <div key={id} className='w-[160px] sm:w-[200px] md:w-[240px] lg:w-[280px] inline-block cursor-pointer relative p-2'>
-                            <img className='w-full h-auto block' src={imageOriginal(item?.backdrop_path)} alt={item.title} />
-                            <div className='absolute top-0 left-0 w-full h-full hover:bg-black/60 opacity-0 hover:opacity-100 text-white transition-all duration-300 ease-in-out'>
-                                <p className='text-xs md:text-sm font-bold flex justify-center items-center h-full text-center'>{item?.title}</p>
-
-                            </div>
-                        </div>
-                        
-                    
-                    )) : ''}
-
+            <h2 className='text-white font-bold md:text-xl pt-4 px-4 pb-1 mb-2'>{title}</h2>
+            <div className='slider-container relative flex items-center group'>
+                <MdChevronLeft 
+                    className=' bg-white rounded-full absolute left-1 opacity-50 hover:opacity-90 cursor-pointer z-10 hidden group-hover:block' 
+                    size={40}
+                    onClick={handleSlideRight}
+                />
+                <div ref={sliderRef} id='slider' className='w-full h-full overflow-x-scroll whitespace-nowrap scroll-smooth scrollbar-hide relative overflow-y-clip'>
+                    {movies.length > 0 ? movies.map((movie) => <Movie key={movie.id} movie={movie}/>) : ''}
                 </div>
+                <MdChevronRight 
+                    className=' bg-white rounded-full absolute right-1 opacity-50 hover:opacity-90 cursor-pointer z-10 hidden group-hover:block' 
+                    size={40}
+                    onClick={handleSlideLeft}
+                />
             </div>
         </>
     )
