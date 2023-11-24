@@ -7,13 +7,46 @@ import {MdChevronLeft, MdChevronRight} from 'react-icons/md'
 const Row = ({title, fetchURL}) => {
     const [movies, setMovies] = useState([]);
     const sliderRef = useRef();
+    const rightArrowRef = useRef();
+
+    const slideWidht = 280;
+
+    const handleSlideRight = () => {
+        if (sliderRef.current){
+            sliderRef.current.scrollLeft = sliderRef.current.scrollLeft +  slideWidht;
+            
+        }
+    }
+    
+    const handleSlideLeft = () => {
+        if (sliderRef.current) {
+            sliderRef.current.scrollLeft = sliderRef.current.scrollLeft - slideWidht;
+        }
+    }
+    
+    const handleAutoSliding = () => {
+        const sliderElement = sliderRef.current;
+        
+        if (sliderElement) {
+            if(
+                sliderElement.scrollLeft + sliderElement.clientWidth >= 
+                sliderElement.scrollWidth
+            ) {
+                sliderElement.scrollLeft = 0;
+            } else {
+                sliderElement.scrollLeft = sliderElement.scrollLeft + slideWidht;            
+            }
+        }
+    }
 
     useEffect(() => {
         const fetchMovies = async () => {
             try {
                 const response = await fetchURL();
                 if (response && response.data) {
-                    setMovies(response.data.results)
+                    let moviesList = response.data.results; 
+                    let moviesWithImg = moviesList.filter(movie => movie?.backdrop_path !== null)
+                    setMovies(moviesWithImg);
                 }
             } catch (err) {
                 console.error("Error fetching movies", err);
@@ -21,19 +54,37 @@ const Row = ({title, fetchURL}) => {
         }
 
         fetchMovies()
-    },[fetchURL])
+    },[fetchURL]);
 
-    const handleSlideRight = () => {
-        if (sliderRef.current){
-            sliderRef.current.scrollLeft = sliderRef.current.scrollLeft +  500;
-        }
-    }
-    
-    const handleSlideLeft = () => {
-        if (sliderRef.current) {
-            sliderRef.current.scrollLeft = sliderRef.current.scrollLeft - 500;
-        }
-    }
+
+    // useEffect(() => {
+    //     let intervalId = setInterval(() => {
+    //         handleAutoSliding();
+    //     }, 2000);
+
+    //     const sliderElement = sliderRef.current;
+
+    //     const handleMouseEnter = () => clearInterval(intervalId);
+        
+    //     const handleMouseLeave = () => {
+    //         intervalId = setInterval(() => {
+    //             handleAutoSliding();
+    //         }, 1500);
+    //     }
+    //     if (sliderElement) {
+    //         sliderElement.addEventListener('mouseenter', handleMouseEnter);
+    //         sliderElement.addEventListener('mouseleave', handleMouseLeave);
+    //     }
+        
+    //     return () => {
+    //         if (sliderElement){
+    //             sliderElement.removeEventListener('mouseenter', handleMouseEnter);
+    //             sliderElement.removeEventListener('mouseleave', handleMouseLeave);
+    //         }
+
+    //         clearInterval(intervalId)
+    //     }
+    // },[])
 
     return (
         <>
@@ -42,7 +93,7 @@ const Row = ({title, fetchURL}) => {
                 <MdChevronLeft 
                     className=' bg-white rounded-full absolute left-1 opacity-50 hover:opacity-90 cursor-pointer z-10 hidden group-hover:block' 
                     size={40}
-                    onClick={handleSlideRight}
+                    onClick={handleSlideLeft}
                 />
                 <div ref={sliderRef} id='slider' className='w-full h-full overflow-x-scroll whitespace-nowrap scroll-smooth scrollbar-hide relative overflow-y-clip'>
                     {movies.length > 0 ? movies.map((movie) => <Movie key={movie.id} movie={movie}/>) : ''}
@@ -50,7 +101,8 @@ const Row = ({title, fetchURL}) => {
                 <MdChevronRight 
                     className=' bg-white rounded-full absolute right-1 opacity-50 hover:opacity-90 cursor-pointer z-10 hidden group-hover:block' 
                     size={40}
-                    onClick={handleSlideLeft}
+                    ref={rightArrowRef}
+                    onClick={handleSlideRight}
                 />
             </div>
         </>

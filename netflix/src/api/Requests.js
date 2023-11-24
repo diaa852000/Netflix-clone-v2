@@ -1,12 +1,10 @@
 import axiosClient, { API_KEY } from "./axiosClient";
 
-export const imageOriginal = (path) => {
-    return `https://image.tmdb.org/t/p/original/${path}`
-}
+export const imageOriginal = path => `https://image.tmdb.org/t/p/original/${path}`;
 
-export const imageW500 = (path) => {
-    return `https://image.tmdb.org/t/p/w500/${path}`
-}
+
+export const imageW500 = path => `https://image.tmdb.org/t/p/w500/${path}`;
+
 
 export const _requests = {
     requestPopular: axiosClient.get('movie/popular', {

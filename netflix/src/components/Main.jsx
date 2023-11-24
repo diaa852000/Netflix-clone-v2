@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import _requests, { imageOriginal } from '../api/Requests';
-import _handleStrHook from '../hooks/StringFunction';
+import _handleStrHook from '../hooks/stringHooks';
 
 const Main = () => {
     const [movies, setMovies] = useState([]);
@@ -13,8 +13,10 @@ const Main = () => {
         const fetchData = async () => {
             try {
                 const response = await _requests.requestPopular;
-                if (response.data.results) {
-                    setMovies(response.data.results)
+                let moviesList = response.data.results; 
+                if (moviesList.length > 0  && moviesList !== null) {
+                    let moviesWithImg = moviesList.filter(movie => movie?.backdrop_path !== null)
+                    setMovies(moviesWithImg);
                 }
             } catch (err) {
                 console.error("Error fetching data:", err);

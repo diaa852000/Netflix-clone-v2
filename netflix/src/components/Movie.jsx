@@ -1,16 +1,17 @@
 import React, {useState} from 'react'
 import {FaHeart, FaRegHeart} from 'react-icons/fa'
-import _handleStrHook from '../hooks/StringFunction';
-import { imageOriginal } from '../api/Requests';
+import _handleStrHook from '../hooks/stringHooks';
+import { imageW500 } from '../api/Requests';
 
 const Movie = ({movie}) => {
     const [like, setLike] = useState(false);
 
+    const handleMovieImg = movie?.backdrop_path !== null ? imageW500(movie?.backdrop_path) : null;
     return (
         <>
             <div className='w-[160px] sm:w-[200px] md:w-[240px] lg:w-[280px] inline-block cursor-pointer relative p-2'>
                 <img 
-                    src={imageOriginal(movie?.backdrop_path)} 
+                    src={handleMovieImg} 
                     alt={movie.title} 
                     className='w-full h-auto block' 
                 />
