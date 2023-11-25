@@ -7,7 +7,6 @@ import {MdChevronLeft, MdChevronRight} from 'react-icons/md'
 const Row = ({title, fetchURL}) => {
     const [movies, setMovies] = useState([]);
     const sliderRef = useRef();
-    const rightArrowRef = useRef();
 
     const slideWidht = 280;
 
@@ -101,7 +100,6 @@ const Row = ({title, fetchURL}) => {
                 <MdChevronRight 
                     className=' bg-white rounded-full absolute right-1 opacity-50 hover:opacity-90 cursor-pointer z-10 hidden group-hover:block' 
                     size={40}
-                    ref={rightArrowRef}
                     onClick={handleSlideRight}
                 />
             </div>

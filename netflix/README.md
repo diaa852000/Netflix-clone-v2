@@ -10,3 +10,5 @@ Currently, two official plugins are available:
 
 todo => destruct the functions into parent and children
 todo => improve the preformance
+
+todo => use react form hook with zod
