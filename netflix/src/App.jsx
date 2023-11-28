@@ -7,7 +7,6 @@ function App() {
   return (
     <>
     <AuthContextProvider>
-      {/* <Navbar /> */}
       <Pathes />
     </AuthContextProvider>
     </>

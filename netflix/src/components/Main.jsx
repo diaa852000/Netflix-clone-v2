@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import _requests, { imageOriginal } from '../api/Requests';
 import _handleStrHook from '../hooks/stringHooks';
+import Navbar from './Navbar';
 
 const Main = () => {
     const [movies, setMovies] = useState([]);
@@ -27,10 +28,11 @@ const Main = () => {
     }, []);
 
     return (
-        <div className='w-full h-[600px] text-white'>
+        <div className='w-full h-[670px] text-white mb-4 relative'>
+            <Navbar ClassName={'bg-transparent absolute top-0 left-0'}/>
             <div className='w-full h-full'>
                 
-                <div className='absolute w-full h-[600px] bg-gradient-to-r from-black' />
+                <div className='absolute w-full h-[670px] bg-gradient-to-r from-black' />
 
                 <img className='w-full h-full object-cover object-top' src={handleBackdrop} alt={movie?.title} />
                 

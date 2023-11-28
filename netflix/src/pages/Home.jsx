@@ -1,5 +1,5 @@
 import React from 'react'
-import { Main, Row } from '../components'
+import { Main, Navbar, Row } from '../components'
 import _requests from '../api/Requests'
 
 const rowTypes = [
