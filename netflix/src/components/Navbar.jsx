@@ -13,7 +13,7 @@ const Navbar = ({ ClassName }) => {
 
     return (
         <div className={`text-white flex items-center justify-between py-2 px-4 w-full z-50 h-16 bg-transparent ${ClassName}`}>
-            <Link to={'/'} className='h-12 w-20 block'>
+            <Link to={'/'} className='w-28 h-16 block'>
                 <img src={logo} alt="logo" className='w-full h-full' />
             </Link>
 

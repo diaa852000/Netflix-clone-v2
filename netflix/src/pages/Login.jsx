@@ -94,7 +94,7 @@ const Form = () => {
                 </div>
                 <Link to="/" className='text-sm'>Need help?</Link>
             </div>
-            <p className='text-[#8c8c8c] self-start md:text-sm'>Don't have an account? <Link to={'/signin'} className='text-white'>sign up.</Link></p>
+            <p className='text-[#8c8c8c] self-start md:text-sm'>Don't have an account? <Link to={'/signup'} className='text-white'>sign up.</Link></p>
             <p className='text-[13px] md:text-sm text-[#b3b3b3] md:mb-24 lg:mb-28'>
                 This page is protected by Google reCAPTCHA to ensure you're not a bot. <Link className='text-blue-700'>Learn more.</Link>
             </p>
