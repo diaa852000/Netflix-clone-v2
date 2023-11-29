@@ -2,6 +2,7 @@ import { Header, OptForm } from "../components/landingPage"
 import logo from '../assets/logo.png'
 
 const HeaderContainer = () => {
+
     return (
         <Header className="relative">
             <div className="absolute top-0 h-[694px] w-full bg-gradient-to-b from-black via-transparent via-30% to-black bg-black/40" />

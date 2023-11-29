@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import bg from '../assets/bg.jpg'
 import logo from '../assets/logo.png'
 import { Link, useNavigate } from 'react-router-dom'
@@ -34,9 +34,19 @@ const Signup = () => {
 }
 
 const Form = () => {
+    const [emai, setEmai] = useState('');
     const { signUp } = useAuth();
     const navigateTo = useNavigate();    
     const inputClass = "rounded-[4px] p-3 w-full md:col-span-2 border-slate-400 border  outline-none placeholder:capitalize placeholder:text-slate-300 text-white bg-gray-500/30"
+
+    useEffect(() => {
+        let savedEmail = window.localStorage.getItem('email');
+        if(savedEmail != undefined || savedEmail != null){
+            setEmai(savedEmail);
+        }else{
+            setEmai('')
+        }
+    },[])
 
     const {
         handleSubmit,
@@ -66,6 +76,7 @@ const Form = () => {
                     id='email_user'
                     placeholder='email address'
                     className={inputClass}
+                    value={emai}
                     {...register("email")}
                 />
                 {errors.email && <span className='text-red-600 text-sm'>{errors.email.message}</span>}
