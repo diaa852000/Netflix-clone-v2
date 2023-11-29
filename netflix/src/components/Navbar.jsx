@@ -2,11 +2,34 @@ import React from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import logo from '../assets/logo.png'
 import { useAuth } from '../context/AuthContext'
+import { MdLogout } from "react-icons/md";
+import { RxAvatar } from "react-icons/rx";
+
 
 const Navbar = ({ ClassName }) => {
-    const { user, logOut } = useAuth()
-    const navigateTo = useNavigate();
+    const {user} = useAuth();
     const isAuthPage = window.location.pathname === "/signup" || window.location.pathname === "/login";
+
+
+    return (
+        <div className={`text-white flex items-center justify-between py-2 px-4 w-full z-50 h-16 bg-transparent ${ClassName}`}>
+            <Link to={'/'} className='h-12 w-20 block'>
+                <img src={logo} alt="logo" className='w-full h-full' />
+            </Link>
+
+            {isAuthPage ? null  // change the layout in signup and login page
+                : user?.email   // if you not in auth pages.. you end auth proccess
+                ? <AuthorizedUser />  
+                : <UnAuthorizedUser/> 
+            }
+        </div >
+    )
+}
+
+
+const AuthorizedUser = () => {
+    const { logOut } = useAuth()
+    const navigateTo = useNavigate();
 
     const handleLogOut = async () => {
         try {
@@ -18,40 +41,36 @@ const Navbar = ({ ClassName }) => {
     }
 
     return (
-        <div className={`text-white flex items-center justify-between py-2 px-4 w-full z-50  ${ClassName} h-16`}>
-            <Link to={'/'}>
-                <img src={logo} alt="logo" className='h-16' />
+        <div className='flex gap-1.5 sm:gap-px'>
+            <Link to={'/account'}>
+                <button className='p-2 rounded capitalize font-semibold'>
+                    <RxAvatar size={22} />
+                </button>
             </Link>
-            {isAuthPage ? (
-                null
-            )
-                : (user?.email ? (
-                    <div className='flex gap-1.5 sm:gap-2'>
-                        <Link to={'/account'}>
-                            <button className='text-white px-4 py-1 lg:px-5 lg:py-2 rounded capitalize font-semibold'>account</button>
-                        </Link>
 
-                        <button 
-                            onClick={handleLogOut}
-                            className='bg-red-600 px-4 py-1 lg:px-5 lg:py-2 rounded cursor-pointer text-white capitalize font-semibold'
-                        >
-                            log out
-                        </button>
-                    </div>
-                )
-                    : (<div className='flex gap-1.5 sm:gap-2'>
-                        <Link to={'/login'}>
-                            <button className='text-white px-4 py-1 lg:px-5 lg:py-2 rounded capitalize font-semibold'>sign in</button>
-                        </Link>
-
-                        <Link to={'/signup'}>
-                            <button className='bg-red-600 px-4 py-1 lg:px-5 lg:py-2 rounded cursor-pointer text-white capitalize font-semibold'>
-                                sign up
-                            </button>
-                        </Link>
-                    </div>
-                    ))}
+            <button
+                onClick={handleLogOut}
+                className='p-2 rounded cursor-pointer text-white capitalize font-semibold'
+            >
+                <MdLogout size={22} />
+            </button>
         </div>
+    )
+}
+
+const UnAuthorizedUser = () => {
+    return (
+        <div className='flex gap-1.5 sm:gap-2'>
+            <Link to={'/login'}>
+                <button className='text-white px-4 py-1 lg:px-5 lg:py-2 rounded capitalize font-semibold'>login</button>
+            </Link >
+
+            <Link to={'/signup'}>
+                <button className='bg-red-600 px-4 py-1 lg:px-5 lg:py-2 rounded cursor-pointer text-white capitalize font-semibold'>
+                    sign up
+                </button>
+            </Link>
+        </div >
     )
 }
 

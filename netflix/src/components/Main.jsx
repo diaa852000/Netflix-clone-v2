@@ -28,7 +28,7 @@ const Main = () => {
     }, []);
 
     return (
-        <div className='w-full h-[670px] text-white mb-4 relative'>
+        <div className='w-full h-[670px] text-white mb-4'>
             <Navbar ClassName={'bg-transparent absolute top-0 left-0'}/>
             <div className='w-full h-full'>
                 

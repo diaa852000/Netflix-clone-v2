@@ -8,7 +8,6 @@ import { schema } from '../lib/schema';
 import { useAuth } from '../context/AuthContext';
 import Navbar from '../components/Navbar';
 
-
 const Signup = () => {
     return (
         <>
@@ -95,7 +94,7 @@ const Form = () => {
                 </div>
                 <Link to="/" className='text-sm'>Need help?</Link>
             </div>
-            <p className='text-[#8c8c8c] self-start md:text-sm'>Netflix user? <Link to={'/signin'} className='text-white'>Login.</Link></p>
+            <p className='text-[#8c8c8c] self-start md:text-sm'>Netflix user? <Link to={'/login'} className='text-white'>Login.</Link></p>
             <p className='text-[13px] md:text-sm text-[#b3b3b3] md:mb-24 lg:mb-28'>
                 This page is protected by Google reCAPTCHA to ensure you're not a bot. <Link className='text-blue-700'>Learn more.</Link>
             </p>
