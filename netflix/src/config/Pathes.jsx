@@ -6,9 +6,9 @@ import { ProtectedRoute, IsAuthentcatedUser } from './ConfigRoutes'
 const Pathes = () => {
     return (
         <Routes>
-            <Route path='/' element={<Landing />} />
             
             <Route element={<IsAuthentcatedUser/>}>
+                <Route path='/' element={<Landing />} />
                 <Route path='/login' element={<Login />} />
                 <Route path='/signup' element={<Signup />} />
             </Route>

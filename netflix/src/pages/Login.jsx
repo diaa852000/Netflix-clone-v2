@@ -7,22 +7,27 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { schema } from '../lib/schema';
 import { useAuth } from '../context/AuthContext';
 import Navbar from '../components/Navbar';
+import { FooterContainer } from '../containers';
 
 const Login = () => {
     return (
         <>
             <div className='relative'>
                 <img className='h-screen w-full object-cover' src={bg} alt="bg" />
-                <div className="fixed top-0 left-0 bg-black/50 h-full w-full">
+                <div className="absolute top-0 left-0 bg-black/50 h-full w-full">
                     <Navbar ClassName="hidden md:block" />
                     <div className='flex flex-col justify-start items-center p-1 md:p-2'>
-                        <div className='fixed top-0 left-0 md:static h-full w-full bg-black px-2 md:flex justify-center rounded-md md:bg-black/90 
+                        <div className='absolute top-0 left-0 md:static h-full w-full bg-black px-2 md:flex justify-center rounded-md md:bg-black/90 
                             md:w-1/2 md:h-[80%] lg:w-2/5 lg:h-4/5 xl:w-[28%] 2xl:w-[24%]'
                         >
                             <img src={logo} alt="logo" className='w-24 md:hidden self-start' />
                             <Form />
                         </div>
                     </div>
+                </div>
+                
+                <div className='hidden md:block'>
+                    <FooterContainer />
                 </div>
             </div>
         </>
@@ -31,7 +36,7 @@ const Login = () => {
 
 const Form = () => {
     const { logIn } = useAuth();
-    const navigateTo = useNavigate();    
+    const navigateTo = useNavigate();
     const inputClass = "rounded-[4px] p-3 w-full md:col-span-2 border-slate-400 border  outline-none placeholder:capitalize placeholder:text-slate-300 text-white bg-gray-500/30"
 
     const {
@@ -98,6 +103,10 @@ const Form = () => {
             <p className='text-[13px] md:text-sm text-[#b3b3b3] md:mb-24 lg:mb-28'>
                 This page is protected by Google reCAPTCHA to ensure you're not a bot. <Link className='text-blue-700'>Learn more.</Link>
             </p>
+
+            <div className='block md:hidden'>
+                <FooterContainer />
+            </div>
         </form>
     )
 }
