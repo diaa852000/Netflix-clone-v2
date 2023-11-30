@@ -1,6 +1,6 @@
 import React, {useState} from 'react'
 import {FaHeart, FaRegHeart} from 'react-icons/fa'
-import _handleStrHook from '../hooks/stringHooks';
+import _handleStrHook from '../helpers/stringHooks';
 import { imageW500 } from '../api/Requests';
 
 const Movie = ({movie}) => {
