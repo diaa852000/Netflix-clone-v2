@@ -1,4 +1,6 @@
-export { default as Navbar } from './Navbar';
+export { default as Navbar } from './Navbar'
 export { default as Main } from './Main'
 export { default as Row } from './Row'
 export { default as Auth } from './Auth'
+export { default as SavedShows } from './SavedShows'
+export { default as Movie } from './Movie'
