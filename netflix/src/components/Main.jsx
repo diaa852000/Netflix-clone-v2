@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import _requests, { imageOriginal } from '../api/Requests';
-import _handleStrHook from '../helpers/stringHooks';
+import useHandleString from '../hooks/stringHooks';
 import Navbar from './Navbar';
 
 const Main = () => {
@@ -45,7 +45,7 @@ const Main = () => {
                     <p className='capitalize text-gray-400 text-sm font-semibold'>
                         relased: <span className='ml-1'>{movie?.release_date}</span>
                     </p>
-                    <p className='w-full md:max-w-[70%] lg:max-w-1/2 xl:max-w-[35%] text-gray-200'>{_handleStrHook(movie?.overview, 250)}</p>
+                    <p className='w-full md:max-w-[70%] lg:max-w-1/2 xl:max-w-[35%] text-gray-200'>{useHandleString(movie?.overview, 250)}</p>
                 </div>
 
             </div>

@@ -1,4 +1,4 @@
-export const useHandleStrHook = (overview, num) => {
+export const useHandleString = (overview, num) => {
     if (overview && overview.length > 0) {
         if (overview?.length <= num) {
             return overview
@@ -9,4 +9,4 @@ export const useHandleStrHook = (overview, num) => {
     }
 };
 
-export default useHandleStrHook;
+export default useHandleString;

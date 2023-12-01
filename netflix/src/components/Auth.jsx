@@ -1,19 +1,23 @@
 import React, { useEffect, useState } from "react";
+
 import { useAuth } from "../context/AuthContext";
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { schema } from '../lib/schema';
 import { useNavigate } from "react-router-dom";
+
 import { Link } from "react-router-dom";
 import { FooterContainer } from "../containers";
 
+import useHandleAuth from "../hooks/authHook";
+
 
 export default function AuthHook({ authMethod }) {
-    const [emai, setEmai] = useState('');
-    const { logIn, singUp } = useAuth();
+    const [email, setEmail] = useState("");
+    const { logIn, signUp } = useAuth();
     const navigateTo = useNavigate();
 
-    const inputClass = "rounded-[4px] p-3 w-full md:col-span-2 border-slate-400 border  outline-none placeholder:capitalize placeholder:text-slate-300 text-white bg-gray-500/30"
+    const inputClass = "rounded-[4px] p-3 w-full md:col-span-2 border-slate-400 border outline-none placeholder:capitalize placeholder:text-slate-300 text-white bg-gray-500/30"
     
     const authTexts = {
         signup : {
@@ -32,12 +36,11 @@ export default function AuthHook({ authMethod }) {
             linkTo: "/signup"
         },
     }
-
     const {
         handleSubmit,
         register,
         formState: { errors },
-    } = useForm({ resolver: zodResolver(schema) });
+    } = useForm({ resolver: zodResolver(schema)});
 
     const handleAuth = async (data) => {
         if (authMethod === "login") {
@@ -49,7 +52,7 @@ export default function AuthHook({ authMethod }) {
             }
         } else if (authMethod === "signup") {
             try {
-                await singUp(data.email, data.password);
+                await signUp(data.email, data.password);
                 navigateTo('/home')
             } catch (error) {
                 console.error("SignUp error has occured", error)
@@ -60,8 +63,8 @@ export default function AuthHook({ authMethod }) {
     useEffect(() => {
         if (authMethod === "signup") {
             let savedEmail = window.localStorage.getItem('email');
-            if (savedEmail != undefined || savedEmail != null) {
-                setEmai(savedEmail || "");
+            if (savedEmail != undefined && savedEmail != null) {
+                setEmail(savedEmail || "");
             }
         }
     }, [])
@@ -81,7 +84,7 @@ export default function AuthHook({ authMethod }) {
                     id='email_user'
                     placeholder='email address'
                     className={inputClass}
-                    value={emai}
+                    // value={email}
                     {...register("email")}
                 />
                 {errors.email && <span className='text-red-600 text-sm'>{errors.email.message}</span>}

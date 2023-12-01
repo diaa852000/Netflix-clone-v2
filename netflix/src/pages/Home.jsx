@@ -15,7 +15,7 @@ const rowTypes = [
 
 const Home = () => {
 
-    const handleRequestTyep = (requestName) => {
+    const handleRequestType = (requestName) => {
         switch (requestName) {
             case 'requestUpcoming':
                 return _requests.requestUpcoming;
@@ -35,7 +35,7 @@ const Home = () => {
     return (
         <>
             <Main />
-            { rowTypes.map(item => <Row key={item.id} title={item.title} fetchURL={() => handleRequestTyep(item.requestName)} />) }
+            { rowTypes.map(item => <Row key={item.id} title={item.title} fetchURL={() => handleRequestType(item.requestName)} />) }
         </>
     )
 }

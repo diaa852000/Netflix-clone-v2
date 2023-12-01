@@ -12,7 +12,6 @@ const Row = ({title, fetchURL}) => {
     const handleSlideRight = () => {
         if (sliderRef.current){
             sliderRef.current.scrollLeft = sliderRef.current.scrollLeft +  slideWidht;
-            
         }
     }
     
@@ -22,20 +21,20 @@ const Row = ({title, fetchURL}) => {
         }
     }
     
-    const handleAutoSliding = () => {
-        const sliderElement = sliderRef.current;
+    // const handleAutoSliding = () => {
+    //     const sliderElement = sliderRef.current;
         
-        if (sliderElement) {
-            if(
-                sliderElement.scrollLeft + sliderElement.clientWidth >= 
-                sliderElement.scrollWidth
-            ) {
-                sliderElement.scrollLeft = 0;
-            } else {
-                sliderElement.scrollLeft = sliderElement.scrollLeft + slideWidht;            
-            }
-        }
-    }
+    //     if (sliderElement) {
+    //         if(
+    //             sliderElement.scrollLeft + sliderElement.clientWidth >= 
+    //             sliderElement.scrollWidth
+    //         ) {
+    //             sliderElement.scrollLeft = 0;
+    //         } else {
+    //             sliderElement.scrollLeft = sliderElement.scrollLeft + slideWidht;            
+    //         }
+    //     }
+    // }
 
     useEffect(() => {
         const fetchMovies = async () => {

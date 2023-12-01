@@ -1,14 +1,9 @@
-import React from 'react'
 import bg from '../assets/bg.jpg'
 import logo from '../assets/logo.png'
-import { Link, useNavigate } from 'react-router-dom'
-import { useForm } from 'react-hook-form';
-import { zodResolver } from '@hookform/resolvers/zod';
-import { schema } from '../lib/schema';
-import { useAuth } from '../context/AuthContext';
 import Navbar from '../components/Navbar';
 import { FooterContainer } from '../containers';
-import AuthHook from '../hooks/authHook';
+import {Auth} from '../components';
+
 
 const Login = () => {
     return (
@@ -36,8 +31,7 @@ const Login = () => {
 }
 
 const Form = () => {
-    return <AuthHook authMethod={"login"}/>
+    return <Auth authMethod={"login"}/>
 }
-
 
 export default Login

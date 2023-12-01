@@ -16,12 +16,7 @@ const Navbar = ({ ClassName }) => {
             <Link to={'/'} className='w-28 h-16 block'>
                 <img src={logo} alt="logo" className='w-full h-full' />
             </Link>
-
-            {isAuthPage ? null  // change the layout in signup and login page
-                : user?.email   // if you not in auth pages.. you end auth proccess
-                ? <AuthorizedUser />  
-                : <UnAuthorizedUser/> 
-            }
+            {isAuthPage ? null : user?.email && <AuthorizedUser />}
         </div >
     )
 }
@@ -34,7 +29,7 @@ const AuthorizedUser = () => {
     const handleLogOut = async () => {
         try {
             await logOut();
-            navigateTo('/login')
+            navigateTo('/');
         } catch (error) {
             console.error("there's an error in logout proccess", error)
         }
@@ -58,20 +53,20 @@ const AuthorizedUser = () => {
     )
 }
 
-const UnAuthorizedUser = () => {
-    return (
-        <div className='flex gap-1.5 sm:gap-2'>
-            <Link to={'/login'}>
-                <button className='text-white px-4 py-1 lg:px-5 lg:py-2 rounded capitalize font-semibold'>login</button>
-            </Link >
+// const UnAuthorizedUser = () => {
+//     return (
+//         <div className='flex gap-1.5 sm:gap-2'>
+//             <Link to={'/login'}>
+//                 <button className='text-white px-4 py-1 lg:px-5 lg:py-2 rounded capitalize font-semibold'>login</button>
+//             </Link >
 
-            <Link to={'/signup'}>
-                <button className='bg-red-600 px-4 py-1 lg:px-5 lg:py-2 rounded cursor-pointer text-white capitalize font-semibold'>
-                    sign up
-                </button>
-            </Link>
-        </div >
-    )
-}
+//             <Link to={'/signup'}>
+//                 <button className='bg-red-600 px-4 py-1 lg:px-5 lg:py-2 rounded cursor-pointer text-white capitalize font-semibold'>
+//                     sign up
+//                 </button>
+//             </Link>
+//         </div >
+//     )
+// }
 
 export default Navbar
