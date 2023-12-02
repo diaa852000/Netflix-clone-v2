@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import _requests, { imageOriginal } from '../api/Requests';
-import useHandleString from '../hooks/stringHooks';
+import useHandleString from '../helpers/stringHooks';
 import Navbar from './Navbar';
 
 const Main = () => {

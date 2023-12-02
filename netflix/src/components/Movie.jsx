@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { FaHeart, FaRegHeart } from 'react-icons/fa'
-import useHandleString from '../hooks/stringHooks'
+import useHandleString from '../helpers/stringHooks'
 import { imageW500 } from '../api/Requests'
 import { useAuth } from '../context/AuthContext'
 import { db } from '../lib/firebase'
@@ -20,7 +20,7 @@ const Movie = ({ movie }) => {
         if (user?.email) {
             setIsLike(prev => !prev);
             if (movie.id && movie.title && movie.backdrop_path) {
-                const isSavedMovie = saveShows.some(isSavedMovie => isSavedMovie.id === movie.id)
+                const isSavedMovie = user.savedShows && user.savedShows.some(savedMovie => savedMovie.id === movie.id);
                 if (!isSavedMovie) {
                     await updateDoc(movieRef, {
                         savedShows: arrayUnion({

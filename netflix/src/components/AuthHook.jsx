@@ -10,7 +10,7 @@ import { FooterContainer } from "../containers";
 import authTexts from '../fixtures/authText'
 
 
-export default function AuthHOC({ authMethod }) {
+export default function UseAuthHook({ authMethod }) {
     const [email, setEmail] = useState();
     const { logIn, signUp } = useAuth();
     const navigateTo = useNavigate();

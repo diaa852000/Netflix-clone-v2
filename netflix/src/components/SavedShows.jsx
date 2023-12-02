@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react'
 import { db } from '../lib/firebase'
 import { updateDoc, doc, onSnapshot, getDoc } from 'firebase/firestore'
 import { useAuth } from '../context/AuthContext'
-import {useHandleString} from '../hooks/stringHooks'
+import {useHandleString} from '../helpers/stringHooks'
 import { AiOutlineClose } from 'react-icons/ai'
 
 const SavedShows = () => {

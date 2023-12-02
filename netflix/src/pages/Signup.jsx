@@ -2,7 +2,7 @@ import bg from '../assets/bg.jpg'
 import logo from '../assets/logo.png'
 import Navbar from '../components/Navbar';
 import { FooterContainer } from '../containers';
-import {Auth} from '../components';
+import UseAuthHook from '../components/AuthHook';
 
 const Signup = () => {
 
@@ -31,7 +31,7 @@ const Signup = () => {
 
 
 const Form = () => {
-    return <Auth authMethod={"signup"}/>
+    return <UseAuthHook authMethod={"signup"}/>
 }
 
 export default Signup
