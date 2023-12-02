@@ -11,10 +11,7 @@ const rowTypes = [
     { id: 5, title: 'Popular', requestName: 'requestPopular' },
 ]
 
-// todo: create function combines between top rated movies and tv and another one for on air (movie + tv)
-
 const Home = () => {
-
     const handleRequestType = (requestName) => {
         switch (requestName) {
             case 'requestUpcoming':

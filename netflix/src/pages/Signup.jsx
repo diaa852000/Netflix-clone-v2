@@ -3,10 +3,10 @@ import logo from '../assets/logo.png'
 import Navbar from '../components/Navbar';
 import { FooterContainer } from '../containers';
 import {Auth} from '../components';
-
-
+import { Navigate } from 'react-router-dom';
 
 const Signup = () => {
+
     return (
         <>
             <div className='relative'>

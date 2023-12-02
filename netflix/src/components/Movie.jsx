@@ -9,41 +9,39 @@ import { arrayUnion, doc, updateDoc } from 'firebase/firestore'
 
 const Movie = ({ movie }) => {
     const [isLike, setIsLike] = useState(false);
-    const [saved, setSaved] = useState();
+    // const [saved, setSaved] = useState();
     const { user } = useAuth();
 
     const handleMovieImg = movie?.backdrop_path !== null ? imageW500(movie?.backdrop_path) : null;
-    
-    const movieID = doc(db, 'users', `${user?.email}`);
+
+    const movieRef = doc(db, 'users', `${user?.email}`);
 
     const saveShows = async () => {
         if (user?.email) {
             setIsLike(prev => !prev);
-            if (
-                movie.id !== undefined 
-                && movie.title !== undefined 
-                && movie.backdrop_path !== undefined
-                ) {
-                await updateDoc(movieID, {
-                    savedShows: arrayUnion({
-                        id: movie.id,
-                        title: movie.title,
-                        img: movie.backdrop_path
-                    }),
-                });
+            if (movie.id && movie.title && movie.backdrop_path) {
+                const isSavedMovie = saveShows.some(isSavedMovie => isSavedMovie.id === movie.id)
+                if (!isSavedMovie) {
+                    await updateDoc(movieRef, {
+                        savedShows: arrayUnion({
+                            id: movie.id,
+                            title: movie.title,
+                            img: movie.backdrop_path
+                        }),
+                    });
+                }
             }
-            setSaved(true);
         } else {
             alert('please log in to save movie');
         }
     }
-    
+
 
     return (
         <>
             <div className='w-[160px] sm:w-[200px] md:w-[240px] lg:w-[280px] inline-block cursor-pointer relative p-2'>
                 <img
-                    src={handleMovieImg }
+                    src={handleMovieImg}
                     alt={movie.title}
                     className='w-full h-auto block'
                 />
@@ -51,7 +49,7 @@ const Movie = ({ movie }) => {
                     <p className='text-xs md:text-sm font-bold flex justify-center items-center h-full text-center'>
                         {useHandleString(movie?.title, 3)}
                     </p>
-                    <LikeButton like={isLike} saveShows={saveShows}/>
+                    <LikeButton like={isLike} saveShows={saveShows} />
                 </div>
             </div>
         </>
@@ -59,15 +57,10 @@ const Movie = ({ movie }) => {
 }
 
 
-const LikeButton = ({like, saveShows}) => {
-    return (
-        <button onClick={saveShows}>
-            {like
-                ? <FaHeart className='absolute top-4 left-4 text-gray-300' />
-                : <FaRegHeart className='absolute top-4 left-4 text-gray-300' />
-            }
-        </button>
-    )
-}
+const LikeButton = ({ like, saveShows }) => {
+    const Icon = like ? FaHeart : FaRegHeart;
+    return <button onClick={saveShows}><Icon className='absolute top-4 left-4 text-gray-300' /></button>;
+};
+
 
 export default Movie

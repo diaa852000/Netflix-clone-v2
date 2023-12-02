@@ -3,9 +3,12 @@ import logo from '../assets/logo.png'
 import Navbar from '../components/Navbar';
 import { FooterContainer } from '../containers';
 import {Auth} from '../components';
+import { useAuth } from '../context/AuthContext';
+import { Navigate } from 'react-router-dom';
 
 
 const Login = () => {
+  
     return (
         <>
             <div className='relative'>
