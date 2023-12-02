@@ -5,42 +5,24 @@ import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { schema } from '../lib/schema';
 import { useNavigate } from "react-router-dom";
-
 import { Link } from "react-router-dom";
 import { FooterContainer } from "../containers";
+import authTexts from '../fixtures/authText'
 
-import useHandleAuth from "../hooks/authHook";
 
-
-export default function AuthHook({ authMethod }) {
-    const [email, setEmail] = useState("");
+export default function AuthHOC({ authMethod }) {
+    const [email, setEmail] = useState();
     const { logIn, signUp } = useAuth();
     const navigateTo = useNavigate();
 
     const inputClass = "rounded-[4px] p-3 w-full md:col-span-2 border-slate-400 border outline-none placeholder:capitalize placeholder:text-slate-300 text-white bg-gray-500/30"
-    
-    const authTexts = {
-        signup : {
-            title: "Sign up",
-            btnText: "sign up",
-            isUser: "Netflix user?",
-            isUserLink: "login.",
-            linkTo: "/login"
-        },
-        
-        login : {
-            title: "Login",
-            btnText: "login",
-            isUser: "Don't have an account?",
-            isUserLink: "sign up.",
-            linkTo: "/signup"
-        },
-    }
+
+
     const {
         handleSubmit,
         register,
         formState: { errors },
-    } = useForm({ resolver: zodResolver(schema)});
+    } = useForm({ resolver: zodResolver(schema) });
 
     const handleAuth = async (data) => {
         if (authMethod === "login") {
@@ -63,8 +45,8 @@ export default function AuthHook({ authMethod }) {
     useEffect(() => {
         if (authMethod === "signup") {
             let savedEmail = window.localStorage.getItem('email');
-            if (savedEmail != undefined && savedEmail != null) {
-                setEmail(savedEmail || "");
+            if (savedEmail && savedEmail != null) {
+                setEmail(savedEmail);
             }
         }
     }, [])
@@ -84,7 +66,8 @@ export default function AuthHook({ authMethod }) {
                     id='email_user'
                     placeholder='email address'
                     className={inputClass}
-                    // value={email}
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
                     {...register("email")}
                 />
                 {errors.email && <span className='text-red-600 text-sm'>{errors.email.message}</span>}
@@ -103,7 +86,20 @@ export default function AuthHook({ authMethod }) {
                 capitalize w-full text-white flex items-center justify-center gap-3 py-2 mt-8 mb-6`}>
                 {authMethod === "signup" ? authTexts.signup.btnText : authTexts.login.btnText}
             </button>
+            
+            <TextComponent/>
 
+            <div className='block md:hidden'>
+                <FooterContainer />
+            </div>
+        </form >
+    );
+}
+
+
+const TextComponent = ({authMethod}) => {
+    return (
+        <>
             <div className='flex justify-between items-center w-full text-[#b3b3b3] mb-5 md:mb-10'>
                 <div>
                     <input
@@ -117,9 +113,9 @@ export default function AuthHook({ authMethod }) {
                 <Link to="/" className='text-sm'>Need help?</Link>
             </div>
 
-            <p className='text-[#8c8c8c] self-start md:text-sm'> 
+            <p className='text-[#8c8c8c] self-start md:text-sm'>
                 {authMethod === "signup" ? authTexts.signup.isUser : authTexts.login.isUser}
-                <Link 
+                <Link
                     to={authMethod === "signup" ? authTexts.signup.linkTo : authTexts.login.linkTo}
                     className='text-white ml-1 capitalize'
                 >
@@ -130,9 +126,6 @@ export default function AuthHook({ authMethod }) {
                 This page is protected by Google reCAPTCHA to ensure you're not a bot. <Link className='text-blue-700'>Learn more.</Link>
             </p>
 
-            <div className='block md:hidden'>
-                <FooterContainer />
-            </div>
-        </form >
-    );
+        </>
+    )
 }

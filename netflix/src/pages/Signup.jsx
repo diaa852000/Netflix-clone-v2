@@ -3,7 +3,6 @@ import logo from '../assets/logo.png'
 import Navbar from '../components/Navbar';
 import { FooterContainer } from '../containers';
 import {Auth} from '../components';
-import { Navigate } from 'react-router-dom';
 
 const Signup = () => {
 
@@ -34,7 +33,5 @@ const Signup = () => {
 const Form = () => {
     return <Auth authMethod={"signup"}/>
 }
-
-
 
 export default Signup
