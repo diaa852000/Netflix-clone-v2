@@ -2,9 +2,10 @@ import bg from '../assets/bg.jpg'
 import logo from '../assets/logo.png'
 import Navbar from '../components/Navbar';
 import { FooterContainer } from '../containers';
-import UseAuthHook from '../components/AuthHook';
+import AuthForm from '../hoc/authHoc/AuthForm';
+import WithAuth from '../hoc/authHoc/WithAuth';
 
-const Signup = () => {
+const Signup = ({OnValidSubmit, register, authMethod, errors, email}) => {
 
     return (
         <>
@@ -17,7 +18,13 @@ const Signup = () => {
                         md:bg-black/90 md:w-1/2 md:h-[80%] lg:w-2/5 lg:h-4/5 xl:w-[28%] 2xl:w-[24%]'
                         >
                             <img src={logo} alt="logo" className='w-24 md:hidden self-start' />
-                            <Form />
+                            <AuthForm
+                                OnValidSubmit={OnValidSubmit}
+                                register={register}
+                                authMethod={authMethod}
+                                errors={errors}
+                                email={email}
+                            />
                         </div>
                     </div>
                 </div>
@@ -30,8 +37,5 @@ const Signup = () => {
 };
 
 
-const Form = () => {
-    return <UseAuthHook authMethod={"signup"}/>
-}
 
-export default Signup
+export default WithAuth(Signup, "signup")

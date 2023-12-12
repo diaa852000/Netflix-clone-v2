@@ -1,58 +1,15 @@
-import React, { useEffect, useState } from "react";
-import { useAuth } from "../context/AuthContext";
-import { useForm } from 'react-hook-form';
-import { zodResolver } from '@hookform/resolvers/zod';
-import { schema } from '../lib/schema';
-import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
-import { FooterContainer } from "../containers";
-import authTexts from '../fixtures/authText'
+import { FooterContainer } from "../../containers";
+import authTexts from '../../fixtures/authText'
 
 
-export default function UseAuthHook({ authMethod }) {
-    const [email, setEmail] = useState();
-    const { logIn, signUp } = useAuth();
-    const navigateTo = useNavigate();
+const inputClass = "rounded-[4px] p-3 w-full md:col-span-2 border-slate-400 border outline-none placeholder:capitalize placeholder:text-slate-300 text-white bg-gray-500/30"
 
-    const inputClass = "rounded-[4px] p-3 w-full md:col-span-2 border-slate-400 border outline-none placeholder:capitalize placeholder:text-slate-300 text-white bg-gray-500/30"
-
-    const {
-        handleSubmit,
-        register,
-        formState: { errors },
-    } = useForm({ resolver: zodResolver(schema) });
-
-    const handleAuth = async (data) => {
-        if (authMethod === "login") {
-            try {
-                await logIn(data.email, data.password);
-                navigateTo('/home')
-            } catch (error) {
-                console.error("SignUp error has occured", error)
-            }
-        } else if (authMethod === "signup") {
-            try {
-                await signUp(data.email, data.password);
-                navigateTo('/home')
-            } catch (error) {
-                console.error("SignUp error has occured", error)
-            }
-        }
-    }
-
-    useEffect(() => {
-        if (authMethod === "signup") {
-            let savedEmail = window.localStorage.getItem('email');
-            if (savedEmail && savedEmail != null) {
-                setEmail(savedEmail);
-            }
-        }
-    }, [])
-
-
+const AuthForm = ({OnValidSubmit, register, errors, authMethod, email}) => {
+    
     return (
         <form
-            onSubmit={handleSubmit(handleAuth)}
+            onSubmit={OnValidSubmit}
             className={`w-full h-full p-2 md:p-10 flex flex-col items-center md:justify-start gap-2`}
         >
             <h1 className='text-3xl self-start p-1 font-semibold capitalize my-4 text-white'>
@@ -81,11 +38,11 @@ export default function UseAuthHook({ authMethod }) {
             </div>
 
             <button className={`rounded-[4px] bg-[#e50914] font-semibold text-[1.05rem] md:text-lg border-none border-0 
-                capitalize w-full text-white flex items-center justify-center gap-3 py-2 mt-8 mb-6`}>
+            capitalize w-full text-white flex items-center justify-center gap-3 py-2 mt-8 mb-6`}>
                 {authMethod === "signup" ? authTexts.signup.btnText : authTexts.login.btnText}
             </button>
-            
-            <TextComponent/>
+
+            <FormTexts authMethod={authMethod}/>
 
             <div className='block md:hidden'>
                 <FooterContainer />
@@ -94,8 +51,7 @@ export default function UseAuthHook({ authMethod }) {
     );
 }
 
-
-const TextComponent = ({authMethod}) => {
+const FormTexts = ({ authMethod }) => {
     return (
         <>
             <div className='flex justify-between items-center w-full text-[#b3b3b3] mb-5 md:mb-10'>
@@ -127,3 +83,6 @@ const TextComponent = ({authMethod}) => {
         </>
     )
 }
+
+
+export default AuthForm
